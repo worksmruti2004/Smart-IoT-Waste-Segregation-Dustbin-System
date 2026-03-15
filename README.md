@@ -164,7 +164,7 @@ Wi-Fi router. All sensors are powered at **5V** with a common **GND** reference.
   IR Object Sensor (GPIO 27), Rain Sensor (GPIO 19), Servo (GPIO 22)
 
 <div align="center">
-  <img src="docs/Circuit Daigram.png" alt="Complete Circuit Diagram" width="500"/>
+  <img src="docs/Circuit Diagram.png" alt="Complete Circuit Diagram" width="500"/>
 </div>
 
 ---
