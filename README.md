@@ -12,7 +12,7 @@ The Smart IoT Dustbin System automatically segregates waste into wet and dry usi
 
 **Automatic waste segregation into wet and dry waste using ESP32, sensors, and real-time Blynk monitoring.**
 
-*Deployed at KIIT University & Silicon University, Bhubaneswar*
+*In Demo Deployed at KIIT University & Silicon University, Bhubaneswar*
 
 </div>
 
