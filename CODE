@@ -1,1 +1,296 @@
+/*
+SMART IOT WASTE SEGREGATION SYSTEM
+Controller : ESP32
+Platform   : Blynk IoT
+Software   : Arduino IDE
 
+Features
+- Automatic waste detection
+- Wet/Dry waste classification
+- Servo-based sorting
+- Real-time bin monitoring
+
+Author : SMRUTI RANJAN ROUT
+*/
+
+
+// ===============================
+// BLYNK PROJECT CONFIGURATION
+// These values are generated when you create a Blynk template.
+// Replace them if someone uses their own Blynk project.
+// ===============================
+#define BLYNK_TEMPLATE_ID "TMPL32ntpgOf9"
+#define BLYNK_TEMPLATE_NAME "SMART DUSTBIN"
+#define BLYNK_AUTH_TOKEN "5bCH5E1aYwYZdXAZZ7cUM-S37BkXAJW1"
+
+
+// ===============================
+// REQUIRED LIBRARIES
+// WiFi.h           → ESP32 WiFi connection
+// BlynkSimpleEsp32 → Blynk IoT communication
+// ESP32Servo       → Servo motor control
+// ===============================
+#include <WiFi.h>
+#include <BlynkSimpleEsp32.h>
+#include <ESP32Servo.h>
+
+
+// ===============================
+// WIFI CREDENTIALS
+// Replace these values with your
+// own WiFi name and password
+// ===============================
+char ssid[] = "BIBHUTI BHUSAN MOHANTY JIO_MAX";
+char pass[] = "Bibhuti@JIO";
+
+
+// ===============================
+// SERVO OBJECT DECLARATION
+// Two servo motors used
+// servoKIIT    → KIIT Dustbin
+// servoSILICON → Silicon Dustbin
+// ===============================
+Servo servoKIIT;
+Servo servoSILICON;
+
+
+// ===============================
+// KIIT DUSTBIN PIN CONFIGURATION
+// Modify these GPIO numbers if
+// hardware connections change
+// ===============================
+const int objectSensor_KIIT = 13;   // Detects object inserted
+const int wetBin_KIIT = 33;         // Wet bin level sensor
+const int dryBin_KIIT = 14;         // Dry bin level sensor
+const int rainSensor_KIIT = 21;     // Moisture / wet detection
+int servoPin_KIIT = 23;             // Servo motor control
+
+
+// ===============================
+// SILICON DUSTBIN PIN CONFIGURATION
+// These pins correspond to the
+// second dustbin system
+// ===============================
+const int objectSensor_SILICON = 27;
+const int wetBin_SILICON = 26;
+const int dryBin_SILICON = 25;
+const int rainSensor_SILICON = 19;
+int servoPin_SILICON = 22;
+
+
+// ===============================
+// SETUP FUNCTION
+// Runs once when ESP32 starts
+// ===============================
+void setup()
+{
+  Serial.begin(115200); // Start serial monitor
+
+  Serial.println("=================================");
+  Serial.println("SMART IOT DUSTBIN SYSTEM STARTING");
+  Serial.println("=================================");
+
+  Serial.println("Connecting to WiFi...");
+
+  // Connect ESP32 to WiFi and Blynk Cloud
+  Blynk.begin(BLYNK_AUTH_TOKEN, ssid, pass);
+
+  Serial.println("WiFi Connected");
+  Serial.println("Connected to Blynk Cloud");
+
+  // ===============================
+  // CONFIGURE SENSOR INPUT PINS
+  // ===============================
+
+  // KIIT Dustbin sensors
+  pinMode(objectSensor_KIIT, INPUT);
+  pinMode(wetBin_KIIT, INPUT);
+  pinMode(dryBin_KIIT, INPUT);
+  pinMode(rainSensor_KIIT, INPUT);
+
+  // Silicon Dustbin sensors
+  pinMode(objectSensor_SILICON, INPUT);
+  pinMode(wetBin_SILICON, INPUT);
+  pinMode(dryBin_SILICON, INPUT);
+  pinMode(rainSensor_SILICON, INPUT);
+
+  // ===============================
+  // ATTACH SERVO MOTORS
+  // ===============================
+  servoKIIT.attach(servoPin_KIIT);
+  servoSILICON.attach(servoPin_SILICON);
+
+  // Set default servo position
+  servoKIIT.write(90);
+  servoSILICON.write(90);
+
+  Serial.println("Servos initialized at center position");
+}
+
+
+// ===============================
+// LOOP FUNCTION
+// Runs continuously
+// ===============================
+void loop()
+{
+  // Maintain Blynk connection
+  Blynk.run();
+
+
+  // =================================================
+  // KIIT DUSTBIN LOGIC
+  // =================================================
+
+  // Detect object entering dustbin
+  if (digitalRead(objectSensor_KIIT) == LOW)
+  {
+    Serial.println("\n[KIIT] Object detected");
+
+    delay(500);
+
+    // Moisture detection
+    // LOW = Wet waste
+    // HIGH = Dry waste
+    if (digitalRead(rainSensor_KIIT) == LOW)
+    {
+      Serial.println("[KIIT] Wet Waste Detected");
+      Serial.println("[KIIT] Servo Moving → WET BIN");
+
+      servoKIIT.write(150); // Rotate toward wet bin
+    }
+    else
+    {
+      Serial.println("[KIIT] Dry Waste Detected");
+      Serial.println("[KIIT] Servo Moving → DRY BIN");
+
+      servoKIIT.write(30); // Rotate toward dry bin
+    }
+
+    delay(2000);
+
+    // Return servo to center position
+    servoKIIT.write(90);
+
+    Serial.println("[KIIT] Servo Returned to Center");
+  }
+
+
+  // ===============================
+  // KIIT WET BIN LEVEL MONITORING
+  // ===============================
+  if (digitalRead(wetBin_KIIT) == LOW)
+  {
+    Serial.println("[KIIT] WET BIN FULL");
+
+    // Send status to Blynk
+    Blynk.virtualWrite(V0, 1);
+
+    // Change indicator color to RED
+    Blynk.setProperty(V0, "color", "#FF0000");
+  }
+  else
+  {
+    Serial.println("[KIIT] WET BIN EMPTY");
+
+    // Green indicator
+    Blynk.virtualWrite(V0, 1);
+    Blynk.setProperty(V0, "color", "#00FF00");
+  }
+
+
+  // ===============================
+  // KIIT DRY BIN LEVEL MONITORING
+  // ===============================
+  if (digitalRead(dryBin_KIIT) == LOW)
+  {
+    Serial.println("[KIIT] DRY BIN FULL");
+
+    Blynk.virtualWrite(V1, 1);
+    Blynk.setProperty(V1, "color", "#FF0000");
+  }
+  else
+  {
+    Serial.println("[KIIT] DRY BIN EMPTY");
+
+    Blynk.virtualWrite(V1, 1);
+    Blynk.setProperty(V1, "color", "#00FF00");
+  }
+
+
+
+  // =================================================
+  // SILICON UNIVERSITY DUSTBIN LOGIC
+  // =================================================
+
+  // Detect object inserted
+  if (digitalRead(objectSensor_SILICON) == LOW)
+  {
+    Serial.println("\n[SILICON] Object detected");
+
+    delay(500);
+
+    // Moisture detection
+    if (digitalRead(rainSensor_SILICON) == LOW)
+    {
+      Serial.println("[SILICON] Wet Waste Detected");
+      Serial.println("[SILICON] Servo Moving → WET BIN");
+
+      servoSILICON.write(150);
+    }
+    else
+    {
+      Serial.println("[SILICON] Dry Waste Detected");
+      Serial.println("[SILICON] Servo Moving → DRY BIN");
+
+      servoSILICON.write(30);
+    }
+
+    delay(2000);
+
+    servoSILICON.write(90);
+
+    Serial.println("[SILICON] Servo Returned to Center");
+  }
+
+
+  // ===============================
+  // SILICON WET BIN MONITORING
+  // ===============================
+  if (digitalRead(wetBin_SILICON) == LOW)
+  {
+    Serial.println("[SILICON] WET BIN FULL");
+
+    Blynk.virtualWrite(V2, 1);
+    Blynk.setProperty(V2, "color", "#FF0000");
+  }
+  else
+  {
+    Serial.println("[SILICON] WET BIN EMPTY");
+
+    Blynk.virtualWrite(V2, 1);
+    Blynk.setProperty(V2, "color", "#00FF00");
+  }
+
+
+  // ===============================
+  // SILICON DRY BIN MONITORING
+  // ===============================
+  if (digitalRead(dryBin_SILICON) == LOW)
+  {
+    Serial.println("[SILICON] DRY BIN FULL");
+
+    Blynk.virtualWrite(V3, 1);
+    Blynk.setProperty(V3, "color", "#FF0000");
+  }
+  else
+  {
+    Serial.println("[SILICON] DRY BIN EMPTY");
+
+    Blynk.virtualWrite(V3, 1);
+    Blynk.setProperty(V3, "color", "#00FF00");
+  }
+
+  // Delay to prevent excessive loop execution
+  delay(1000);
+}
