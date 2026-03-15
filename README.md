@@ -8,7 +8,6 @@ The Smart IoT Dustbin System automatically segregates waste into wet and dry usi
 ![ESP32](https://img.shields.io/badge/ESP32-IoT-blue?style=for-the-badge&logo=espressif)
 ![Blynk](https://img.shields.io/badge/Blynk-IoT%20Dashboard-green?style=for-the-badge)
 ![Arduino](https://img.shields.io/badge/Arduino-C++-teal?style=for-the-badge&logo=arduino)
-![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)
 
 **Automatic waste segregation into wet and dry waste using ESP32, sensors, and real-time Blynk monitoring.**
 
