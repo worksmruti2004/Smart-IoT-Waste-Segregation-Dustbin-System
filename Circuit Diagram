@@ -1,0 +1,26 @@
+🏗️ System Architecture
+                   ┌─────────────────────┐
+                   │     ESP32 MCU        │
+                   │                     │
+  Object Sensor ──►│  GPIO 13 (KIIT)     │
+  Wet Bin Full  ──►│  GPIO 33 (KIIT)     │──► Servo Motor (GPIO 23)
+  Dry Bin Full  ──►│  GPIO 14 (KIIT)     │
+  Rain Sensor   ──►│  GPIO 21 (KIIT)     │
+                   │                     │
+  Object Sensor ──►│  GPIO 27 (Silicon)  │
+  Wet Bin Full  ──►│  GPIO 26 (Silicon)  │──► Servo Motor (GPIO 22)
+  Dry Bin Full  ──►│  GPIO 25 (Silicon)  │
+  Rain Sensor   ──►│  GPIO 19 (Silicon)  │
+                   └──────────┬──────────┘
+                              │ Wi-Fi
+                              ▼
+                   ┌─────────────────────┐
+                   │   Blynk IoT Cloud    │
+                   │  V0 - KIIT Wet Bin  │
+                   │  V1 - KIIT Dry Bin  │
+                   │  V2 - Sil. Wet Bin  │
+                   │  V3 - Sil. Dry Bin  │
+                   └─────────────────────┘
+
+🔧 Hardware Requirements
+ComponentQuantityPurposeESP32 Development Board1Main microcontrollerIR Object Sensor2Detect waste insertionRain / Moisture Sensor2Classify wet vs dry wasteIR / Ultrasonic Bin Level Sensor4Detect bin full statusServo Motor (SG90 or MG996R)2Control waste diverting flapJumper Wires—ConnectionsPower Supply (5V/2A)1Power the systemDustbin Enclosure2Physical housing
