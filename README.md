@@ -124,6 +124,51 @@ The **Smart IoT Waste Segregation Dustbin System** is an embedded IoT project th
 
 ---
 
+## 🖥️ System Block Diagram
+### How the blocks connect
+
+- **KIIT & Silicon Dustbins** — Each dustbin has an IR Object Sensor to detect incoming
+  waste, a Rain Sensor to classify it as wet or dry, and Bin Level Sensors to report
+  when the compartment is full.
+
+- **ESP32 Controller + Servo Motors** — The ESP32 reads all sensor inputs and drives
+  two servo motors (one per dustbin) to physically divert waste into the correct
+  wet or dry compartment.
+
+- **Waste Detection & Sorting** — Once an object is detected, the rain sensor result
+  is evaluated and the servo rotates to 150° (wet) or 30° (dry), then returns to 90°.
+
+- **Bin Status Monitoring** — Bin level sensors continuously report fullness back to
+  the ESP32, which pushes color-coded alerts (🔴 Full / 🟢 Empty) to the dashboard.
+
+- **Blynk Smartphone App** — All four bin statuses (V0–V3) are visible in real time
+  on the Blynk mobile dashboard over Wi-Fi.
+
+<div align="center">
+  <img src="docs/System Block.png" alt="System Block Diagram" width="500"/>
+</div>
+
+---
+
+---
+
+## 🔌 Circuit Diagram
+
+The complete wiring connects the ESP32 Dev Board to all sensors and servo motors
+across both dustbin units. The board communicates with the Blynk Cloud via a
+Wi-Fi router. All sensors are powered at **5V** with a common **GND** reference.
+
+- **Left side (KIIT)** — Wet Bin Sensor (GPIO 33), Dry Bin Sensor (GPIO 14),
+  IR Object Sensor (GPIO 13), Rain Sensor (GPIO 21), Servo (GPIO 23)
+- **Right side (Silicon)** — Wet Bin Sensor (GPIO 26), Dry Bin Sensor (GPIO 25),
+  IR Object Sensor (GPIO 27), Rain Sensor (GPIO 19), Servo (GPIO 22)
+
+<div align="center">
+  <img src="docs/Circuit Daigram.png" alt="Complete Circuit Diagram" width="500"/>
+</div>
+
+---
+
 ## 🛠️ Software Setup
 
 ### Prerequisites
