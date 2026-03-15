@@ -251,9 +251,8 @@ Smart-IoT-Waste-Segregation-Dustbin-System/
 
 ## 👥 Authors
 
-Developed as part of an IoT project initiative for smart waste management at:
+Developed as part of an IoT project initiative for smart waste management by:
 - **By: SMRUTI RANJAN ROUT**
-- **Silicon University**, Bhubaneswar
 
 ---
 
