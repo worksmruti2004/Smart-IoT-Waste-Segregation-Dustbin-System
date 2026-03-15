@@ -231,6 +231,30 @@ Smart-IoT-Waste-Segregation-Dustbin-System/
 
 ---
 
+## 🖼️ Blynk Dashboard
+
+> Live dashboard showing real-time bin status — 🔴 Red = Full, 🟢 Green = Empty
+
+<div align="center">
+
+![Blynk Dashboard](docs/blynk_dashboard.png)
+
+</div>
+
+> Current state shown above:
+> - KIIT Wet Bin → 🔴 Full
+> - KIIT Dry Bin → 🟢 Empty
+> - Silicon Wet Bin → 🟢 Empty
+> - Silicon Dry Bin → 🔴 Full
+```
+
+For your repo, make sure to place the image at exactly this path so the link resolves correctly:
+```
+docs/
+└── blynk_dashboard.png   ← put the image here
+
+---
+
 ## 👥 Authors
 
 Developed as part of an IoT project initiative for smart waste management at:
