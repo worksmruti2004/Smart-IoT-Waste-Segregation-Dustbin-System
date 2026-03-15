@@ -281,7 +281,7 @@ Smart-IoT-Waste-Segregation-Dustbin-System/
 > Live dashboard showing real-time bin status — 🔴 Red = Full, 🟢 Green = Empty
 
 <div align="center">
-  <img src="docs/blynk_dashboard.png" alt="Blynk Dashboard" width="750" height="500"/>
+  <img src="docs/blynk_dashboard.png" alt="Blynk Dashboard" width="550" height="300"/>
 </div>
 
 </div>
