@@ -22,5 +22,39 @@
                    │  V3 - Sil. Dry Bin  │
                    └─────────────────────┘
 
-🔧 Hardware Requirements
-ComponentQuantityPurposeESP32 Development Board1Main microcontrollerIR Object Sensor2Detect waste insertionRain / Moisture Sensor2Classify wet vs dry wasteIR / Ultrasonic Bin Level Sensor4Detect bin full statusServo Motor (SG90 or MG996R)2Control waste diverting flapJumper Wires—ConnectionsPower Supply (5V/2A)1Power the systemDustbin Enclosure2Physical housing
+## 🔧 Hardware Requirements
+
+| Component | Quantity | Purpose |
+|-----------|----------|---------|
+| ESP32 Development Board | 1 | Main microcontroller |
+| IR Object Sensor | 2 | Detect waste insertion |
+| Rain / Moisture Sensor | 2 | Classify wet vs dry waste |
+| IR / Ultrasonic Bin Level Sensor | 4 | Detect bin full status |
+| Servo Motor (SG90 or MG996R) | 2 | Control waste diverting flap |
+| Jumper Wires | — | Connections |
+| Power Supply (5V/2A) | 1 | Power the system |
+| Dustbin Enclosure | 2 | Physical housing |
+
+---
+
+## 📌 Pin Configuration
+
+### KIIT University Dustbin
+
+| Sensor/Actuator | ESP32 GPIO Pin |
+|----------------|----------------|
+| Object Sensor | 13 |
+| Wet Bin Full Sensor | 33 |
+| Dry Bin Full Sensor | 14 |
+| Rain/Moisture Sensor | 21 |
+| Servo Motor | 23 |
+
+### Silicon University Dustbin
+
+| Sensor/Actuator | ESP32 GPIO Pin |
+|----------------|----------------|
+| Object Sensor | 27 |
+| Wet Bin Full Sensor | 26 |
+| Dry Bin Full Sensor | 25 |
+| Rain/Moisture Sensor | 19 |
+| Servo Motor | 22 |
