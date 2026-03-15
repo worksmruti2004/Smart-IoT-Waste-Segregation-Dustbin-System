@@ -231,18 +231,6 @@ Smart-IoT-Waste-Segregation-Dustbin-System/
 
 ---
 
-## 🤝 Contributing
-
-Contributions are welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) before submitting a pull request.
-
----
-
-## 📄 License
-
-This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
-
----
-
 ## 👥 Authors
 
 Developed as part of an IoT project initiative for smart waste management at:
