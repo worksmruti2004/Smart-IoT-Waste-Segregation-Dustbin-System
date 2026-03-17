@@ -17,7 +17,7 @@ The Smart IoT Dustbin System automatically segregates waste into wet and dry usi
 
 ---
 
-## 📌 Overview
+## 📌 Overvie
 
 The **Smart IoT Waste Segregation Dustbin System** is an embedded IoT project that automatically classifies and separates waste into **wet** and **dry** categories using a moisture/rain sensor and a servo-controlled flap mechanism. Bin fullness is monitored in real time via the **Blynk IoT dashboard**, enabling efficient waste management across multiple locations.
 
